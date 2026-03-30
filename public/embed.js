@@ -323,7 +323,7 @@
   }
 
   // Fetch widget data and render
-  fetch(baseUrl + "/api/widget/" + widgetId)
+  fetch(baseUrl + "/api/widget/" + widgetId + "?format=json")
     .then(function (res) {
       return res.json();
     })

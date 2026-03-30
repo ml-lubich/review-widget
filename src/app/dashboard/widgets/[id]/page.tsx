@@ -81,7 +81,7 @@ export default function EditWidgetPage() {
 
   function getEmbedCode() {
     const origin = typeof window !== "undefined" ? window.location.origin : "https://yourdomain.com";
-    return `<div id="reviewboost-widget" data-widget-id="${widgetId}"></div>\n<script src="${origin}/embed.js" async></script>`;
+    return `<iframe src="${origin}/api/widget/${widgetId}" style="border:none;width:100%;min-height:300px;" loading="lazy"></iframe>`;
   }
 
   function copyEmbed() {
