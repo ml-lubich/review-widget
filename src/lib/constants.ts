@@ -5,6 +5,7 @@ export const WIDGET_STYLES = [
   { value: "carousel" as const, label: "Review Carousel", description: "Auto-rotating review slider" },
   { value: "grid" as const, label: "Review Wall", description: "Grid layout showing multiple reviews" },
   { value: "badge" as const, label: "Star Badge", description: "Compact badge with average rating" },
+  { value: "floating" as const, label: "Floating Badge", description: "Fixed-position floating review badge" },
 ] as const;
 
 export const DEFAULT_COLORS = {

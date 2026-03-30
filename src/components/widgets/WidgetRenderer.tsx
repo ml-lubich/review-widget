@@ -5,6 +5,7 @@ import { TestimonialCard } from "./TestimonialCard";
 import { StarBadge } from "./StarBadge";
 import { ReviewCarousel } from "./ReviewCarousel";
 import { ReviewWall } from "./ReviewWall";
+import { FloatingBadge } from "./FloatingBadge";
 
 interface WidgetRendererProps {
   style: WidgetStyle;
@@ -34,5 +35,7 @@ export function WidgetRenderer({
       return <ReviewWall {...props} />;
     case "badge":
       return <StarBadge {...props} businessName={businessName} />;
+    case "floating":
+      return <FloatingBadge {...props} businessName={businessName} />;
   }
 }
