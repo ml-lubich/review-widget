@@ -31,6 +31,7 @@ export default async function DashboardPage() {
     carousel: "Review Carousel",
     grid: "Review Wall",
     badge: "Star Badge",
+    floating: "Floating Badge",
   };
 
   return (

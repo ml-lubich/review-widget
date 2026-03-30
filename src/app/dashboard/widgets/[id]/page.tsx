@@ -50,7 +50,7 @@ export default function EditWidgetPage() {
         .eq("widget_id", widgetId)
         .order("created_at", { ascending: false });
 
-      setReviews(r || []);
+      setReviews((r as Review[]) || []);
       setLoading(false);
     }
     load();

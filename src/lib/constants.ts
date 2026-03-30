@@ -1,4 +1,4 @@
-import { PricingTier } from "./types";
+import { PricingTier, Review } from "./types";
 
 export const WIDGET_STYLES = [
   { value: "card" as const, label: "Testimonial Cards", description: "Beautiful review cards with star ratings" },
@@ -73,6 +73,7 @@ export const SAMPLE_REVIEWS = [
     author_name: "Sarah M.",
     rating: 5,
     body: "Absolutely amazing service! The team went above and beyond to help us. Would highly recommend to anyone looking for quality work.",
+    source: "manual",
     created_at: "2024-03-15",
   },
   {
@@ -81,6 +82,7 @@ export const SAMPLE_REVIEWS = [
     author_name: "James K.",
     rating: 5,
     body: "Best experience I've ever had. Professional, timely, and the results exceeded my expectations.",
+    source: "manual",
     created_at: "2024-03-10",
   },
   {
@@ -89,6 +91,7 @@ export const SAMPLE_REVIEWS = [
     author_name: "Emily R.",
     rating: 4,
     body: "Great work overall. Very responsive and easy to work with. Will definitely be coming back.",
+    source: "manual",
     created_at: "2024-03-05",
   },
   {
@@ -97,6 +100,7 @@ export const SAMPLE_REVIEWS = [
     author_name: "Michael T.",
     rating: 5,
     body: "Outstanding quality and attention to detail. They truly care about their customers.",
+    source: "manual",
     created_at: "2024-02-28",
   },
   {
@@ -105,6 +109,7 @@ export const SAMPLE_REVIEWS = [
     author_name: "Lisa P.",
     rating: 5,
     body: "Five stars isn't enough! From start to finish, everything was perfect. Highly recommend!",
+    source: "manual",
     created_at: "2024-02-20",
   },
   {
@@ -113,6 +118,7 @@ export const SAMPLE_REVIEWS = [
     author_name: "David W.",
     rating: 4,
     body: "Very professional team. They delivered on time and the quality was excellent.",
+    source: "manual",
     created_at: "2024-02-15",
   },
-];
+] satisfies Review[];

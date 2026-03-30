@@ -1,8 +1,9 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { Star, LayoutDashboard, Plus, LogOut } from "lucide-react";
+import { Star, LayoutDashboard, Plus } from "lucide-react";
 import { LogoutButton } from "./LogoutButton";
+import { MobileSidebar } from "./MobileSidebar";
 
 export default async function DashboardLayout({
   children,
@@ -20,8 +21,8 @@ export default async function DashboardLayout({
 
   return (
     <div className="min-h-screen flex">
-      {/* Sidebar */}
-      <aside className="w-64 bg-surface border-r border-surface-border flex flex-col">
+      {/* Desktop Sidebar */}
+      <aside className="hidden md:flex w-64 bg-surface border-r border-surface-border flex-col">
         <div className="p-6">
           <Link href="/" className="flex items-center gap-2">
             <Star className="w-6 h-6 text-gold-500 fill-gold-500" />
@@ -54,9 +55,12 @@ export default async function DashboardLayout({
         </div>
       </aside>
 
+      {/* Mobile Header */}
+      <MobileSidebar email={user.email || ""} />
+
       {/* Main content */}
       <main className="flex-1 overflow-auto">
-        <div className="max-w-6xl mx-auto p-8">{children}</div>
+        <div className="max-w-6xl mx-auto p-4 pt-16 md:pt-8 md:p-8">{children}</div>
       </main>
     </div>
   );

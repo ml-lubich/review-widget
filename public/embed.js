@@ -210,6 +210,118 @@
     return html;
   }
 
+  function renderFloating(widget, reviews) {
+    if (!reviews.length) return "<p>No reviews yet</p>";
+    var avg =
+      reviews.reduce(function (s, r) {
+        return s + r.rating;
+      }, 0) / (reviews.length || 1);
+    var fid = "rb-floating-" + widgetId;
+    var html =
+      '<div id="' + fid + '-badge" style="cursor:pointer;display:inline-flex;align-items:center;gap:12px;background:' +
+      widget.background_color +
+      ";color:" +
+      widget.text_color +
+      ";border:1px solid " +
+      widget.primary_color +
+      '33;border-radius:999px;padding:12px 20px;font-family:system-ui,-apple-system,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,0.3);">' +
+      '<svg width="20" height="20" viewBox="0 0 24 24" fill="' +
+      widget.primary_color +
+      '" stroke="' +
+      widget.primary_color +
+      '" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>' +
+      '<span style="font-weight:700;font-size:18px;">' +
+      avg.toFixed(1) +
+      "</span>" +
+      '<span style="font-size:12px;opacity:0.6;">' +
+      reviews.length +
+      " review" +
+      (reviews.length !== 1 ? "s" : "") +
+      "</span></div>" +
+      '<div id="' + fid + '-card" style="display:none;background:' +
+      widget.background_color +
+      ";color:" +
+      widget.text_color +
+      ";border:1px solid " +
+      widget.primary_color +
+      '33;border-radius:12px;width:320px;overflow:hidden;font-family:system-ui,-apple-system,sans-serif;box-shadow:0 8px 24px rgba(0,0,0,0.4);">' +
+      '<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid ' +
+      widget.primary_color +
+      '22;">' +
+      '<div style="display:flex;align-items:center;gap:8px;">' +
+      '<svg width="16" height="16" viewBox="0 0 24 24" fill="' +
+      widget.primary_color +
+      '" stroke="' +
+      widget.primary_color +
+      '" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>' +
+      '<span style="font-weight:700;font-size:14px;">' +
+      (widget.business_name || "Reviews") +
+      "</span></div>" +
+      '<button id="' + fid + '-close" style="background:none;border:none;color:' +
+      widget.text_color +
+      ';cursor:pointer;opacity:0.6;font-size:18px;padding:2px 6px;">&#10005;</button></div>' +
+      '<div id="' + fid + '-content" style="padding:16px;"></div>' +
+      '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 16px;border-top:1px solid ' +
+      widget.primary_color +
+      '22;">' +
+      '<span id="' + fid + '-counter" style="font-size:11px;opacity:0.4;"></span>' +
+      '<div style="display:flex;gap:4px;">' +
+      '<button id="' + fid + '-prev" style="background:none;border:none;color:' +
+      widget.text_color +
+      ';cursor:pointer;padding:4px;opacity:0.7;">&#9664;</button>' +
+      '<button id="' + fid + '-next" style="background:none;border:none;color:' +
+      widget.text_color +
+      ';cursor:pointer;padding:4px;opacity:0.7;">&#9654;</button>' +
+      "</div></div></div>";
+
+    setTimeout(function () {
+      var badge = document.getElementById(fid + "-badge");
+      var card = document.getElementById(fid + "-card");
+      var closeBtn = document.getElementById(fid + "-close");
+      var contentEl = document.getElementById(fid + "-content");
+      var counterEl = document.getElementById(fid + "-counter");
+      var prevBtn = document.getElementById(fid + "-prev");
+      var nextBtn = document.getElementById(fid + "-next");
+      var current = 0;
+
+      function showReview(idx) {
+        var r = reviews[idx];
+        if (!contentEl) return;
+        contentEl.innerHTML =
+          stars(r.rating, widget.primary_color) +
+          '<p style="margin:8px 0 0;font-size:14px;line-height:1.6;opacity:0.9;min-height:48px;">' +
+          r.body +
+          "</p>" +
+          '<div style="margin-top:10px;display:flex;align-items:center;gap:8px;">' +
+          avatar(r.author_name, widget.primary_color, widget.background_color) +
+          '<span style="font-size:13px;font-weight:500;">' +
+          r.author_name +
+          "</span></div>";
+        if (counterEl) counterEl.textContent = idx + 1 + "/" + reviews.length;
+      }
+
+      if (badge) badge.onclick = function () {
+        badge.style.display = "none";
+        card.style.display = "block";
+        showReview(current);
+      };
+      if (closeBtn) closeBtn.onclick = function () {
+        card.style.display = "none";
+        badge.style.display = "inline-flex";
+      };
+      if (prevBtn) prevBtn.onclick = function () {
+        current = (current - 1 + reviews.length) % reviews.length;
+        showReview(current);
+      };
+      if (nextBtn) nextBtn.onclick = function () {
+        current = (current + 1) % reviews.length;
+        showReview(current);
+      };
+    }, 0);
+
+    return html;
+  }
+
   // Fetch widget data and render
   fetch(baseUrl + "/api/widget/" + widgetId)
     .then(function (res) {
@@ -238,6 +350,9 @@
           break;
         case "grid":
           html = renderGrid(widget, reviews);
+          break;
+        case "floating":
+          html = renderFloating(widget, reviews);
           break;
         default:
           html = renderCard(widget, reviews);
