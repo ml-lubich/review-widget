@@ -34,7 +34,45 @@ flowchart LR
 
 - [Stack](#stack)
 - [Architecture](#architecture)
+- [Embed flow (sequence)](#embed-flow-sequence)
+- [Setup steps](#setup-steps)
 - [Getting Started](#getting-started)
+
+## Embed flow (sequence)
+
+```mermaid
+sequenceDiagram
+    participant O as owner
+    participant DASH as /dashboard
+    participant DB as Supabase
+    participant API as /api/widget
+    participant SITE as customer site
+    participant V as visitor
+
+    O->>DASH: connect reviews source
+    DASH->>DB: store config + reviews
+    DASH-->>O: copy <script> embed
+    O->>SITE: paste embed in HTML
+    V->>SITE: page load
+    SITE->>API: GET /api/widget?id=XYZ
+    API->>DB: fetch reviews
+    DB-->>API: latest N
+    API-->>SITE: JSON + JS
+    SITE-->>V: rendered widget
+```
+
+## Setup steps
+
+```mermaid
+flowchart LR
+    A([sign up])
+    B([connect reviews source])
+    C([customize widget look])
+    D([copy embed snippet])
+    E([paste into site])
+    Z([live])
+    A --> B --> C --> D --> E --> Z
+```
 
 ## Stack
 
