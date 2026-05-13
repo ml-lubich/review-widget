@@ -37,6 +37,7 @@ flowchart LR
 - [Embed flow (sequence)](#embed-flow-sequence)
 - [Setup steps](#setup-steps)
 - [Getting Started](#getting-started)
+- [🗺️ Repository map](#️-repository-map)
 
 ## Embed flow (sequence)
 
@@ -98,3 +99,32 @@ bun run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
+
+
+## 🗺️ Repository map
+
+Top-level layout of `review-widget` rendered as a Mermaid mindmap (auto-generated from the on-disk tree).
+
+```mermaid
+mindmap
+  root((review-widget))
+    public/
+      embed.js
+      file.svg
+      globe.svg
+      next.svg
+      vercel.svg
+      window.svg
+    src/
+      app
+      components
+      lib
+      proxy.ts
+    supabase/
+      migrations
+    files
+      README.md
+      next.config.ts
+      package.json
+      tsconfig.json
+```
