@@ -38,6 +38,7 @@ flowchart LR
 - [Setup steps](#setup-steps)
 - [Getting Started](#getting-started)
 - [🗺️ Repository map](#️-repository-map)
+- [📊 Code composition](#-code-composition)
 
 ## Embed flow (sequence)
 
@@ -127,4 +128,21 @@ mindmap
       next.config.ts
       package.json
       tsconfig.json
+```
+
+
+## 📊 Code composition
+
+File-type breakdown of source under this repo (skips `.git`, `node_modules`, build caches, lockfiles).
+
+```mermaid
+pie showData title File-type composition of review-widget (51 files)
+    "TypeScript" : 34
+    "SVG image" : 5
+    "Markdown" : 4
+    "JavaScript" : 3
+    "JSON" : 2
+    "SQL" : 1
+    "Image" : 1
+    "CSS" : 1
 ```
